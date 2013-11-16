@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BBCE45AF1836471400EBF206"
-               BuildableName = "CodaTitanium.bundle"
+               BuildableName = "CodaTitanium.codaplugin"
                BlueprintName = "CodaTitanium"
                ReferencedContainer = "container:CodaTitanium.xcodeproj">
             </BuildableReference>
@@ -35,10 +35,14 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
+      customWorkingDirectory = "/Users/peerless/Library/Application Support/Coda 2/Plug-ins"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <PathRunnable
+         FilePath = "/Applications/Coda 2.app">
+      </PathRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

@@ -9,10 +9,15 @@
 /* Begin PBXBuildFile section */
 		BBCE45B41836471400EBF206 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCE45B31836471400EBF206 /* Cocoa.framework */; };
 		BBCE45BE1836471400EBF206 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBCE45BC1836471400EBF206 /* InfoPlist.strings */; };
+		BBCE45C81836473600EBF206 /* CTDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCE45C71836473600EBF206 /* CTDelegate.m */; };
+		BBCE45CB183650C000EBF206 /* CTPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBCE45CA183650C000EBF206 /* CTPreferences.xib */; };
+		BBCE45CE183650FA00EBF206 /* CTPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCE45CD183650FA00EBF206 /* CTPreferences.m */; };
+		BBCE45D218366CAE00EBF206 /* CTBuild.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBCE45D118366CAE00EBF206 /* CTBuild.xib */; };
+		BBCE45D518366CF900EBF206 /* CTBuild.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCE45D418366CF900EBF206 /* CTBuild.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BBCE45B01836471400EBF206 /* CodaTitanium.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodaTitanium.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBCE45B01836471400EBF206 /* CodaTitanium.codaplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodaTitanium.codaplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBCE45B31836471400EBF206 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBCE45B61836471400EBF206 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BBCE45B71836471400EBF206 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -20,6 +25,15 @@
 		BBCE45BB1836471400EBF206 /* CodaTitanium-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CodaTitanium-Info.plist"; sourceTree = "<group>"; };
 		BBCE45BD1836471400EBF206 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BBCE45BF1836471400EBF206 /* CodaTitanium-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CodaTitanium-Prefix.pch"; sourceTree = "<group>"; };
+		BBCE45C51836472000EBF206 /* CodaPlugInsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodaPlugInsController.h; sourceTree = "<group>"; };
+		BBCE45C61836473600EBF206 /* CTDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTDelegate.h; sourceTree = "<group>"; };
+		BBCE45C71836473600EBF206 /* CTDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTDelegate.m; sourceTree = "<group>"; };
+		BBCE45CA183650C000EBF206 /* CTPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTPreferences.xib; sourceTree = "<group>"; };
+		BBCE45CC183650FA00EBF206 /* CTPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTPreferences.h; sourceTree = "<group>"; };
+		BBCE45CD183650FA00EBF206 /* CTPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTPreferences.m; sourceTree = "<group>"; };
+		BBCE45D118366CAE00EBF206 /* CTBuild.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTBuild.xib; sourceTree = "<group>"; };
+		BBCE45D318366CF900EBF206 /* CTBuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTBuild.h; sourceTree = "<group>"; };
+		BBCE45D418366CF900EBF206 /* CTBuild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTBuild.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +60,7 @@
 		BBCE45B11836471400EBF206 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BBCE45B01836471400EBF206 /* CodaTitanium.bundle */,
+				BBCE45B01836471400EBF206 /* CodaTitanium.codaplugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,6 +87,14 @@
 		BBCE45B91836471400EBF206 /* CodaTitanium */ = {
 			isa = PBXGroup;
 			children = (
+				BBCE45C61836473600EBF206 /* CTDelegate.h */,
+				BBCE45C71836473600EBF206 /* CTDelegate.m */,
+				BBCE45CC183650FA00EBF206 /* CTPreferences.h */,
+				BBCE45CD183650FA00EBF206 /* CTPreferences.m */,
+				BBCE45CA183650C000EBF206 /* CTPreferences.xib */,
+				BBCE45D318366CF900EBF206 /* CTBuild.h */,
+				BBCE45D418366CF900EBF206 /* CTBuild.m */,
+				BBCE45D118366CAE00EBF206 /* CTBuild.xib */,
 				BBCE45BA1836471400EBF206 /* Supporting Files */,
 			);
 			path = CodaTitanium;
@@ -81,6 +103,7 @@
 		BBCE45BA1836471400EBF206 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BBCE45C51836472000EBF206 /* CodaPlugInsController.h */,
 				BBCE45BB1836471400EBF206 /* CodaTitanium-Info.plist */,
 				BBCE45BC1836471400EBF206 /* InfoPlist.strings */,
 				BBCE45BF1836471400EBF206 /* CodaTitanium-Prefix.pch */,
@@ -105,7 +128,7 @@
 			);
 			name = CodaTitanium;
 			productName = CodaTitanium;
-			productReference = BBCE45B01836471400EBF206 /* CodaTitanium.bundle */;
+			productReference = BBCE45B01836471400EBF206 /* CodaTitanium.codaplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -139,6 +162,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCE45CB183650C000EBF206 /* CTPreferences.xib in Resources */,
+				BBCE45D218366CAE00EBF206 /* CTBuild.xib in Resources */,
 				BBCE45BE1836471400EBF206 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +175,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCE45CE183650FA00EBF206 /* CTPreferences.m in Sources */,
+				BBCE45C81836473600EBF206 /* CTDelegate.m in Sources */,
+				BBCE45D518366CF900EBF206 /* CTBuild.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,26 +266,36 @@
 		BBCE45C31836471400EBF206 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
+				COMBINE_HIDPI_IMAGES = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CodaTitanium/CodaTitanium-Prefix.pch";
 				INFOPLIST_FILE = "CodaTitanium/CodaTitanium-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INSTALL_PATH = "/Library/Application Support/Coda 2/Plug-ins/";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = bundle;
+				WRAPPER_EXTENSION = codaplugin;
 			};
 			name = Debug;
 		};
 		BBCE45C41836471400EBF206 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
+				COMBINE_HIDPI_IMAGES = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CodaTitanium/CodaTitanium-Prefix.pch";
 				INFOPLIST_FILE = "CodaTitanium/CodaTitanium-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				INSTALL_PATH = "/Library/Application Support/Coda 2/Plug-ins/";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = bundle;
+				WRAPPER_EXTENSION = codaplugin;
 			};
 			name = Release;
 		};
@@ -280,6 +318,7 @@
 				BBCE45C41836471400EBF206 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
