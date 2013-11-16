@@ -9,7 +9,38 @@
 #import "CTBuild.h"
 
 @implementation CTBuild
-@synthesize field;
+@synthesize project, command, field, logControl, runButton, stopButton, clearButton;
+
+-(id)initWithProject:(NSString *)path
+{
+    self = [super initWithWindowNibName:@"CTBuild"];
+    
+    if(self){
+        self.project = path;
+    }
+    
+    return self;
+}
+
+-(void)windowDidLoad
+{
+    [field setMaxSize:CGSizeMake(FLT_MAX, FLT_MAX)];
+    [field setHorizontallyResizable:YES];
+    [[field textContainer] setWidthTracksTextView:NO];
+    [[field textContainer] setContainerSize:CGSizeMake(FLT_MAX, FLT_MAX)];
+    
+    NSString *log = [[NSUserDefaults standardUserDefaults] stringForKey:@"CTLogLevel"];
+    
+    for(uint i=0; i<[logControl segmentCount]; i++){
+        if([log isEqualToString:[[logControl labelForSegment:i] lowercaseString]]){
+            [logControl setSelectedSegment:i];
+        }
+    }
+    
+    [stopButton setEnabled:NO];
+    [stopButton setEnabled:NO];
+    [clearButton setEnabled:NO];
+}
 
 -(void)windowWillClose:(NSNotification *)notification
 {
@@ -18,88 +49,141 @@
     }
 }
 
--(void)print:(NSString *)str
+-(IBAction)runTask:(id)sender
 {
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\e.(\\d{1,1};)??(\\d{1,2}m)" options:NSRegularExpressionUseUnixLineSeparators error:nil];
-    
-    NSMutableString *mutableString = [str mutableCopy];
-    NSInteger offset = 0;
+    // just in case
+    [self stopTask:sender];
+    [self buildWithParams:command];
+}
 
-    for(NSTextCheckingResult *result in [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])])
-    {
-        NSString *replacement = @"";
-        NSRange resultRange = [result range];
-        
-        resultRange.location += offset;
-        [mutableString replaceCharactersInRange:resultRange withString:replacement];
-        offset += ([replacement length] - resultRange.length);
+-(IBAction)stopTask:(id)sender
+{
+    if(task && [task isRunning]){
+        [task terminate];
     }
     
+    [stopButton setEnabled:NO];
+    [runButton setEnabled:YES];
+}
+
+-(IBAction)setLogLevel:(id)sender
+{
+    NSSegmentedControl *control = (NSSegmentedControl *)sender;
+    NSString *selected = [[control labelForSegment:[control selectedSegment]] lowercaseString];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:selected forKey:@"CTLogLevel"];
+}
+
+-(IBAction)clearLog:(id)sender
+{
+    [clearButton setEnabled:NO];
+    [field setString:@""];
+}
+
+-(void)printLog:(NSString *)str
+{
     [field setEditable:YES];
-    [field insertText:[NSString stringWithFormat:@"%@", mutableString]];
-    [field setTextColor:[NSColor whiteColor]];
+    [field insertText:[NSString stringWithFormat:@"%@", str]];
     [field setEditable:NO];
 }
 
--(void)run:(NSString *)command onPath:(NSString *)path;
+-(void)buildWithParams:(NSString *)params
 {
-    NSString *userShell = [self getUserShell];
-    if([userShell isEqualToString:@""]){
-        [self print:@"ERROR: Invalid User Shell... operation aborted!\n"];
+    [self showWindow:self];
+    [self clearLog:nil];
+    
+    if([project isEqualToString:@""]){
+        [self printLog:@"[ERROR] : Invalid Project Path"];
+        return;
+    }
+    else {
+        [self printLog:[NSString stringWithFormat:@"[PROJECT] : %@\n\n", project]];
+    }
+    
+    self.command = params;
+    
+    NSArray *arguments = [command componentsSeparatedByString:@":"];
+    
+    if([arguments count] < 2){
+        [self printLog:[NSString stringWithFormat:@"[ERROR] : Invalid arguments - %@", arguments]];
         return;
     }
     
-    [self print:[NSString stringWithFormat:@"Building project: %@\n\n",path]];
-    [self setEnvironment:userShell];
+    NSString *titanium      = [[NSUserDefaults standardUserDefaults] stringForKey:@"CTExecPath"];
+    NSString *sdkVersion    = [[NSUserDefaults standardUserDefaults] stringForKey:@"CTSDKVersion"];
+    NSString *logLevel      = [[NSUserDefaults standardUserDefaults] stringForKey:@"CTLogLevel"];
+    NSString *platform      = [arguments objectAtIndex:0];
+    NSString *target        = [arguments objectAtIndex:1];
+    NSString *device        = @"";
     
-    NSString *exec = [NSString stringWithFormat:@"/usr/local/bin/titanium build -p ios -T simulator -d '%@'", path];
+    if([arguments count] > 2){
+         device = [NSString stringWithFormat:@"--device-family %@", [arguments objectAtIndex:2]];
+    }
     
-    // Run the task
+    NSString *cli = [NSString stringWithFormat: @"%@titanium build --platform %@ --target %@ --project-dir '%@' --sdk %@ --log-level %@ --no-colors %@", titanium, platform, target, project, sdkVersion, logLevel, device];
+    
+    [self execute:cli];
+}
+
+-(void)execute:(NSString *)string
+{
+    NSString *shell = [self setupShellEnvironment];
+    
+    if([shell isEqualToString:@""]){
+        [self printLog:@"[ERROR] : User shell unavailable... operation oborted!"];
+        return;
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^(void)
     {
         task = [[NSTask alloc] init];
-        [task setLaunchPath:userShell];
-        [task setArguments:[NSArray arrayWithObjects:@"-c", exec, nil]];
-        
+        [task setLaunchPath:shell];
+        [task setArguments:[NSArray arrayWithObjects:@"-c", string, nil]];
+
         NSPipe *pipe = [NSPipe pipe];
         NSPipe *errorPipe = [NSPipe pipe];
-        
+
         [task setStandardOutput:pipe];
         [task setStandardError:errorPipe];
-        
+
         NSFileHandle *outFile = [pipe fileHandleForReading];
         NSFileHandle *errFile = [errorPipe fileHandleForReading];
-        
+
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(terminated:)
-                                                     name:NSTaskDidTerminateNotification
-                                                   object:task];
-        
+                                            selector:@selector(terminated:)
+                                                name:NSTaskDidTerminateNotification
+                                              object:task];
+
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(outData:)
-                                                     name:NSFileHandleDataAvailableNotification
-                                                   object:outFile];
-        
+                                            selector:@selector(outData:)
+                                                name:NSFileHandleDataAvailableNotification
+                                              object:outFile];
+
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(errData:)
-                                                     name:NSFileHandleDataAvailableNotification
-                                                   object:errFile];
-        
+                                            selector:@selector(errData:)
+                                                name:NSFileHandleDataAvailableNotification
+                                              object:errFile];
+
         [outFile waitForDataInBackgroundAndNotify];
         [errFile waitForDataInBackgroundAndNotify];
-        
+
         [task launch];
+        
+        [runButton setEnabled:NO];
+        [stopButton setEnabled:YES];
     });
 }
 
 -(void)outData:(NSNotification *)notification
 {
+    [clearButton setEnabled:YES];
+    
     NSFileHandle *handle = (NSFileHandle *) [notification object];
     NSData *data = [handle availableData];
     
     if([data length]){
         NSString *line = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self print:line];
+        [self printLog:line];
     }
     
     [handle waitForDataInBackgroundAndNotify];
@@ -107,12 +191,14 @@
 
 -(void)errData: (NSNotification *) notification
 {
+    [clearButton setEnabled:YES];
+    
     NSFileHandle *handle = (NSFileHandle *) [notification object];
     NSData *data = [handle availableData];
     
     if([data length]){
         NSString *line = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self print:[NSString stringWithFormat:@"%@", line]];
+        [self printLog:[NSString stringWithFormat:@"%@", line]];
     }
     
     [handle waitForDataInBackgroundAndNotify];
@@ -120,15 +206,15 @@
 
 -(void)terminated: (NSNotification *)notification
 {
-    //NSTask *handle = (NSTask *) [notification object];
+    [clearButton setEnabled:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(NSString *)getUserShell
+-(NSString *)setupShellEnvironment
 {
+    BOOL isValidShell = NO;
     NSString *userShell = [[[NSProcessInfo processInfo] environment] objectForKey:@"SHELL"];
     
-    BOOL isValidShell = NO;
     for(NSString *validShell in [[NSString stringWithContentsOfFile:@"/etc/shells" encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]]){
         if([[validShell stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:userShell]){
             isValidShell = YES;
@@ -139,12 +225,7 @@
     if(!isValidShell){
         return @"";
     }
-    
-    return userShell;
-}
 
--(void)setEnvironment:(NSString *)userShell
-{
     NSTask *readPath = [[NSTask alloc] init];
     [readPath setLaunchPath:userShell];
     [readPath setArguments:[NSArray arrayWithObjects:@"-c", @"echo $PATH", nil]];
@@ -159,10 +240,16 @@
     NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     
     NSString *userPath = [stringRead stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if(userPath.length > 0 && [userPath rangeOfString:@":"].length > 0 && [userPath rangeOfString:@"/usr/bin"].length > 0) {
-        userPath = [NSString stringWithFormat:@"%@:/usr/local/bin/", userPath];
+    
+    if(userPath.length > 0 && [userPath rangeOfString:@":"].length > 0 && [userPath rangeOfString:@"/usr/bin"].length > 0)
+    {
+        userPath = [NSString stringWithFormat:@"%@:%@", userPath, [[NSUserDefaults standardUserDefaults] stringForKey:@"CTExecPath"]];
         setenv("PATH", [userPath fileSystemRepresentation], 1);
+        
+        return userShell;
     }
+    
+    return @"";
 }
 
 @end

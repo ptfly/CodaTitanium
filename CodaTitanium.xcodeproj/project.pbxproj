@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB6DB81A1837B4FE0038F263 /* clearLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6DB8161837B4FE0038F263 /* clearLog.png */; };
+		BB6DB81C1837B4FE0038F263 /* runTask.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6DB8181837B4FE0038F263 /* runTask.png */; };
+		BB6DB8211837BEE50038F263 /* stopTask.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6DB8201837BEE50038F263 /* stopTask.png */; };
 		BBCE45B41836471400EBF206 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCE45B31836471400EBF206 /* Cocoa.framework */; };
 		BBCE45BE1836471400EBF206 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBCE45BC1836471400EBF206 /* InfoPlist.strings */; };
 		BBCE45C81836473600EBF206 /* CTDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCE45C71836473600EBF206 /* CTDelegate.m */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB6DB8161837B4FE0038F263 /* clearLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearLog.png; sourceTree = "<group>"; };
+		BB6DB8181837B4FE0038F263 /* runTask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = runTask.png; sourceTree = "<group>"; };
+		BB6DB8201837BEE50038F263 /* stopTask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopTask.png; sourceTree = "<group>"; };
 		BBCE45B01836471400EBF206 /* CodaTitanium.codaplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodaTitanium.codaplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBCE45B31836471400EBF206 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBCE45B61836471400EBF206 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -48,6 +54,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB6DB8111837B3600038F263 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BB6DB8201837BEE50038F263 /* stopTask.png */,
+				BB6DB8161837B4FE0038F263 /* clearLog.png */,
+				BB6DB8181837B4FE0038F263 /* runTask.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BBCE45A71836471400EBF206 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +103,7 @@
 		BBCE45B91836471400EBF206 /* CodaTitanium */ = {
 			isa = PBXGroup;
 			children = (
+				BB6DB8111837B3600038F263 /* Resources */,
 				BBCE45C61836473600EBF206 /* CTDelegate.h */,
 				BBCE45C71836473600EBF206 /* CTDelegate.m */,
 				BBCE45CC183650FA00EBF206 /* CTPreferences.h */,
@@ -162,9 +179,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB6DB81A1837B4FE0038F263 /* clearLog.png in Resources */,
 				BBCE45CB183650C000EBF206 /* CTPreferences.xib in Resources */,
+				BB6DB8211837BEE50038F263 /* stopTask.png in Resources */,
 				BBCE45D218366CAE00EBF206 /* CTBuild.xib in Resources */,
 				BBCE45BE1836471400EBF206 /* InfoPlist.strings in Resources */,
+				BB6DB81C1837B4FE0038F263 /* runTask.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

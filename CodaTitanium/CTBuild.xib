@@ -7,63 +7,124 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CTBuild">
             <connections>
+                <outlet property="clearButton" destination="4bL-2T-h0L" id="9Eq-0G-jVC"/>
                 <outlet property="field" destination="Jxb-26-zSF" id="9B0-Tf-NFE"/>
+                <outlet property="logControl" destination="oIM-NY-f5o" id="jPI-cZ-PkM"/>
+                <outlet property="runButton" destination="Laz-V1-Qbc" id="sut-Jn-xwh"/>
+                <outlet property="stopButton" destination="Bju-J8-OgM" id="sec-8F-SEc"/>
                 <outlet property="window" destination="5Ga-vT-asf" id="ESn-LR-fCO"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Build Log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" showsToolbarButton="NO" frameAutosaveName="CTBuild" animationBehavior="default" id="5Ga-vT-asf" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" utility="YES" HUD="YES"/>
+        <window title="Titanium Build Log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="CTBuild" animationBehavior="default" id="5Ga-vT-asf" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" rightStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="762" y="534" width="400" height="200"/>
+            <rect key="contentRect" x="762" y="534" width="600" height="300"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
-            <value key="minSize" type="size" width="500" height="250"/>
+            <value key="minSize" type="size" width="600" height="300"/>
             <view key="contentView" id="sgL-cf-bNU">
-                <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" scrollerKnobStyle="light" translatesAutoresizingMaskIntoConstraints="NO" id="iBI-se-xGd">
-                        <rect key="frame" x="5" y="5" width="390" height="190"/>
+                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" scrollerKnobStyle="dark" translatesAutoresizingMaskIntoConstraints="NO" id="iBI-se-xGd">
+                        <rect key="frame" x="5" y="5" width="590" height="290"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="jFf-eO-XPy">
-                            <rect key="frame" x="0.0" y="0.0" width="390" height="190"/>
+                            <rect key="frame" x="0.0" y="0.0" width="590" height="290"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" drawsBackground="NO" findStyle="panel" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dataDetection="YES" dashSubstitution="YES" id="Jxb-26-zSF">
-                                    <rect key="frame" x="0.0" y="0.0" width="418" height="190"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="618" height="290"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="390" height="190"/>
-                                    <size key="maxSize" width="463" height="10000000"/>
-                                    <color key="insertionPointColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="390" height="190"/>
-                                    <size key="maxSize" width="463" height="10000000"/>
+                                    <size key="minSize" width="590" height="290"/>
+                                    <size key="maxSize" width="10000000" height="10000000"/>
+                                    <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="590" height="290"/>
+                                    <size key="maxSize" width="10000000" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Ncx-Pq-1BI">
-                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="Ncx-Pq-1BI">
+                            <rect key="frame" x="0.0" y="274" width="590" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="SSQ-o4-h4E">
-                            <rect key="frame" x="374" y="0.0" width="16" height="190"/>
+                            <rect key="frame" x="575" y="0.0" width="15" height="290"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="iBI-se-xGd" firstAttribute="leading" secondItem="sgL-cf-bNU" secondAttribute="leading" constant="5" id="2fk-3x-JhK"/>
-                    <constraint firstItem="iBI-se-xGd" firstAttribute="centerY" secondItem="sgL-cf-bNU" secondAttribute="centerY" id="MRV-Sb-w6w"/>
-                    <constraint firstItem="iBI-se-xGd" firstAttribute="centerX" secondItem="sgL-cf-bNU" secondAttribute="centerX" id="RN8-f7-3yn"/>
-                    <constraint firstItem="iBI-se-xGd" firstAttribute="top" secondItem="sgL-cf-bNU" secondAttribute="top" constant="5" id="ZSY-tE-8zd"/>
+                    <constraint firstItem="iBI-se-xGd" firstAttribute="centerY" secondItem="sgL-cf-bNU" secondAttribute="centerY" id="1n3-Vd-kk3"/>
+                    <constraint firstItem="iBI-se-xGd" firstAttribute="top" secondItem="sgL-cf-bNU" secondAttribute="top" constant="5" id="V8K-gN-4O0"/>
+                    <constraint firstItem="iBI-se-xGd" firstAttribute="leading" secondItem="sgL-cf-bNU" secondAttribute="leading" constant="5" id="oX5-uL-2x3"/>
+                    <constraint firstItem="iBI-se-xGd" firstAttribute="centerX" secondItem="sgL-cf-bNU" secondAttribute="centerX" id="xqM-2F-3Dy"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="E2771915-CB6F-4F6D-9C49-05B5B20AC629" displayMode="iconAndLabel" sizeMode="small" id="gZI-0V-leH">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="5371015D-A821-4DEA-A41F-20BA18583E19" label="Run" paletteLabel="Run" tag="-1" image="runTask" autovalidates="NO" id="Laz-V1-Qbc">
+                        <connections>
+                            <action selector="runTask:" target="-2" id="Ssg-0W-hYv"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="8A49E5C4-0CFC-4164-B9B4-25AD4EFA1C7A" label="Stop" paletteLabel="Stop" tag="1" image="stopTask" autovalidates="NO" id="Bju-J8-OgM">
+                        <connections>
+                            <action selector="stopTask:" target="-2" id="IbM-tw-EBD"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="DzX-a7-ZBQ"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="vQx-1X-XEJ"/>
+                    <toolbarItem implicitItemIdentifier="12669972-7E70-4AD6-993F-E568DDD1CE89" label="Clear Log" paletteLabel="Clear Log" tag="2" image="clearLog" autovalidates="NO" id="4bL-2T-h0L">
+                        <connections>
+                            <action selector="clearLog:" target="-2" id="Oa1-hV-s6O"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="18594085-8209-467A-AE79-8953CDB86BF2" label="Log Level" paletteLabel="Log Level" image="logLevel" id="Tag-2D-Dck">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="104" height="22"/>
+                        <size key="maxSize" width="314" height="28"/>
+                        <segmentedControl key="view" verticalHuggingPriority="750" id="oIM-NY-f5o">
+                            <rect key="frame" x="0.0" y="14" width="312" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <segmentedCell key="cell" alignment="left" style="roundRect" trackingMode="selectOne" id="LI4-GJ-ny6">
+                                <font key="font" metaFont="cellTitle"/>
+                                <segments>
+                                    <segment label="Trace" width="60" selected="YES" tag="11"/>
+                                    <segment label="Debug" width="60" tag="12"/>
+                                    <segment label="Info" width="60" tag="13"/>
+                                    <segment label="Warn" width="60" tag="14"/>
+                                    <segment label="Error" width="60" tag="15"/>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <action selector="setLogLevel:" target="-2" id="zkH-UW-aKX"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="Laz-V1-Qbc"/>
+                    <toolbarItem reference="vQx-1X-XEJ"/>
+                    <toolbarItem reference="Bju-J8-OgM"/>
+                    <toolbarItem reference="DzX-a7-ZBQ"/>
+                    <toolbarItem reference="Tag-2D-Dck"/>
+                    <toolbarItem reference="DzX-a7-ZBQ"/>
+                    <toolbarItem reference="4bL-2T-h0L"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="UGP-8N-Maq"/>
             </connections>
         </window>
     </objects>
+    <resources>
+        <image name="clearLog" width="64" height="64"/>
+        <image name="logLevel" width="64" height="64"/>
+        <image name="runTask" width="128" height="128"/>
+        <image name="stopTask" width="64" height="64"/>
+    </resources>
 </document>
