@@ -20,8 +20,23 @@
 
 -(void)print:(NSString *)str
 {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\e.(\\d{1,1};)??(\\d{1,2}m)" options:NSRegularExpressionUseUnixLineSeparators error:nil];
+    
+    NSMutableString *mutableString = [str mutableCopy];
+    NSInteger offset = 0;
+
+    for(NSTextCheckingResult *result in [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])])
+    {
+        NSString *replacement = @"";
+        NSRange resultRange = [result range];
+        
+        resultRange.location += offset;
+        [mutableString replaceCharactersInRange:resultRange withString:replacement];
+        offset += ([replacement length] - resultRange.length);
+    }
+    
     [field setEditable:YES];
-    [field insertText:[NSString stringWithFormat:@"%@", str]];
+    [field insertText:[NSString stringWithFormat:@"%@", mutableString]];
     [field setTextColor:[NSColor whiteColor]];
     [field setEditable:NO];
 }
@@ -97,7 +112,7 @@
     
     if([data length]){
         NSString *line = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self print:[NSString stringWithFormat:@"ERROR: %@", line]];
+        [self print:[NSString stringWithFormat:@"%@", line]];
     }
     
     [handle waitForDataInBackgroundAndNotify];
