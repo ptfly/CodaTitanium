@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 г. Plamen Todorov. All rights reserved.
 //
 
+#import "CTConfig.h"
 #import "CTBuild.h"
 
 @implementation CTBuild
@@ -40,6 +41,8 @@
     [stopButton setEnabled:NO];
     [stopButton setEnabled:NO];
     [clearButton setEnabled:NO];
+    
+    [super windowDidLoad];
 }
 
 -(void)windowWillClose:(NSNotification *)notification
@@ -127,7 +130,7 @@
 
 -(void)execute:(NSString *)string
 {
-    NSString *shell = [self setupShellEnvironment];
+    NSString *shell = [CTConfig userShell];
     
     if([shell isEqualToString:@""]){
         [self printLog:@"[ERROR] : User shell unavailable... operation oborted!"];
@@ -208,48 +211,6 @@
 {
     [clearButton setEnabled:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
--(NSString *)setupShellEnvironment
-{
-    BOOL isValidShell = NO;
-    NSString *userShell = [[[NSProcessInfo processInfo] environment] objectForKey:@"SHELL"];
-    
-    for(NSString *validShell in [[NSString stringWithContentsOfFile:@"/etc/shells" encoding:NSUTF8StringEncoding error:nil] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]]){
-        if([[validShell stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:userShell]){
-            isValidShell = YES;
-            break;
-        }
-    }
-    
-    if(!isValidShell){
-        return @"";
-    }
-
-    NSTask *readPath = [[NSTask alloc] init];
-    [readPath setLaunchPath:userShell];
-    [readPath setArguments:[NSArray arrayWithObjects:@"-c", @"echo $PATH", nil]];
-    
-    NSPipe *outPipe = [NSPipe pipe];
-    [readPath setStandardOutput:outPipe];
-    
-    [readPath launch];
-    [readPath waitUntilExit];
-    
-    NSData *dataRead = [[outPipe fileHandleForReading] readDataToEndOfFile];
-    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-    
-    NSString *userPath = [stringRead stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    if(userPath.length > 0 && [userPath rangeOfString:@":"].length > 0 && [userPath rangeOfString:@"/usr/bin"].length > 0)
-    {
-        userPath = [NSString stringWithFormat:@"%@:%@", userPath, [[NSUserDefaults standardUserDefaults] stringForKey:@"CTExecPath"]];
-        setenv("PATH", [userPath fileSystemRepresentation], 1);
-        
-        return userShell;
-    }
-    
-    return @"";
 }
 
 @end

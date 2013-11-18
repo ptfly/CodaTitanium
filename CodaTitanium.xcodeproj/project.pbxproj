@@ -10,6 +10,7 @@
 		BB6DB81A1837B4FE0038F263 /* clearLog.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6DB8161837B4FE0038F263 /* clearLog.png */; };
 		BB6DB81C1837B4FE0038F263 /* runTask.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6DB8181837B4FE0038F263 /* runTask.png */; };
 		BB6DB8211837BEE50038F263 /* stopTask.png in Resources */ = {isa = PBXBuildFile; fileRef = BB6DB8201837BEE50038F263 /* stopTask.png */; };
+		BB82B914183A34EB0006BAB8 /* CTConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BB82B913183A34EB0006BAB8 /* CTConfig.m */; };
 		BBCE45B41836471400EBF206 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCE45B31836471400EBF206 /* Cocoa.framework */; };
 		BBCE45BE1836471400EBF206 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBCE45BC1836471400EBF206 /* InfoPlist.strings */; };
 		BBCE45C81836473600EBF206 /* CTDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCE45C71836473600EBF206 /* CTDelegate.m */; };
@@ -23,6 +24,8 @@
 		BB6DB8161837B4FE0038F263 /* clearLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearLog.png; sourceTree = "<group>"; };
 		BB6DB8181837B4FE0038F263 /* runTask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = runTask.png; sourceTree = "<group>"; };
 		BB6DB8201837BEE50038F263 /* stopTask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopTask.png; sourceTree = "<group>"; };
+		BB82B912183A32370006BAB8 /* CTConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTConfig.h; sourceTree = "<group>"; };
+		BB82B913183A34EB0006BAB8 /* CTConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTConfig.m; sourceTree = "<group>"; };
 		BBCE45B01836471400EBF206 /* CodaTitanium.codaplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodaTitanium.codaplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBCE45B31836471400EBF206 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBCE45B61836471400EBF206 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -103,7 +106,8 @@
 		BBCE45B91836471400EBF206 /* CodaTitanium */ = {
 			isa = PBXGroup;
 			children = (
-				BB6DB8111837B3600038F263 /* Resources */,
+				BB82B912183A32370006BAB8 /* CTConfig.h */,
+				BB82B913183A34EB0006BAB8 /* CTConfig.m */,
 				BBCE45C61836473600EBF206 /* CTDelegate.h */,
 				BBCE45C71836473600EBF206 /* CTDelegate.m */,
 				BBCE45CC183650FA00EBF206 /* CTPreferences.h */,
@@ -112,6 +116,7 @@
 				BBCE45D318366CF900EBF206 /* CTBuild.h */,
 				BBCE45D418366CF900EBF206 /* CTBuild.m */,
 				BBCE45D118366CAE00EBF206 /* CTBuild.xib */,
+				BB6DB8111837B3600038F263 /* Resources */,
 				BBCE45BA1836471400EBF206 /* Supporting Files */,
 			);
 			path = CodaTitanium;
@@ -197,6 +202,7 @@
 			files = (
 				BBCE45CE183650FA00EBF206 /* CTPreferences.m in Sources */,
 				BBCE45C81836473600EBF206 /* CTDelegate.m in Sources */,
+				BB82B914183A34EB0006BAB8 /* CTConfig.m in Sources */,
 				BBCE45D518366CF900EBF206 /* CTBuild.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

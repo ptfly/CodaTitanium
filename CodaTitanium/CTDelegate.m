@@ -51,26 +51,15 @@
         // Init
 		controller = inController;
         
-        NSString *newGroup = @"New...";
-        [controller registerActionWithTitle:@"iPad Simulator" underSubmenuWithTitle:newGroup target:self selector:@selector(build:) representedObject:@"ios:simulator:ipad" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"iPhone Simulator" underSubmenuWithTitle:newGroup target:self selector:@selector(build:) representedObject:@"ios:simulator:iphone" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"Android Emulator" underSubmenuWithTitle:newGroup target:self selector:@selector(build:) representedObject:@"android:emulator" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"Mobile Web Preview in Browser" underSubmenuWithTitle:newGroup target:self selector:@selector(build:) representedObject:@"mobileweb:browser" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"Mobile Web Preview in Emulator" underSubmenuWithTitle:newGroup target:self selector:@selector(build:) representedObject:@"mobileweb:emulator" keyEquivalent:nil pluginName:nil];
-        
-        [controller registerActionWithTitle:@"—" target:self selector:nil];
-        
         [controller registerActionWithTitle:@"Build & Run" underSubmenuWithTitle:nil target:self selector:@selector(build:) representedObject:CTDefaultTarget keyEquivalent:@"cmd+b" pluginName:nil];
         
         NSString *buildGroup = @"Build & Run...";
-        [controller registerActionWithTitle:@"iPad Simulator" underSubmenuWithTitle:buildGroup target:self selector:@selector(build:) representedObject:@"ios:simulator:ipad" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"iPhone Simulator" underSubmenuWithTitle:buildGroup target:self selector:@selector(build:) representedObject:@"ios:simulator:iphone" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"Android Emulator" underSubmenuWithTitle:buildGroup target:self selector:@selector(build:) representedObject:@"android:emulator" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"Mobile Web Preview in Browser" underSubmenuWithTitle:buildGroup target:self selector:@selector(build:) representedObject:@"mobileweb:browser" keyEquivalent:nil pluginName:nil];
-        [controller registerActionWithTitle:@"Mobile Web Preview in Emulator" underSubmenuWithTitle:buildGroup target:self selector:@selector(build:) representedObject:@"mobileweb:emulator" keyEquivalent:nil pluginName:nil];
         
-        [controller registerActionWithTitle:@"—" target:self selector:nil];
-        [controller registerActionWithTitle:@"Preferences..." target:self selector:@selector(preferences:)];
+        [[CTConfig devicesList] enumerateKeysAndObjectsUsingBlock:^(id value, id text, BOOL *stop) {
+            [controller registerActionWithTitle:text underSubmenuWithTitle:buildGroup target:self selector:@selector(build:) representedObject:value keyEquivalent:nil pluginName:nil];
+        }];
+        
+        [controller registerActionWithTitle:@"Preferences..." underSubmenuWithTitle:nil target:self selector:@selector(preferences:) representedObject:nil keyEquivalent:nil pluginName:@"Titanium"];
     }
     
 	return self;
@@ -101,7 +90,8 @@
         pref = [[CTPreferences alloc] initWithWindowNibName:@"CTPreferences"];
     }
     
-    [pref showWindow:self];
+    [pref showWindow:[pref window]];
 }
+
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 г. Plamen Todorov. All rights reserved.
 //
 
+#import "CTConfig.h"
 #import "CTPreferences.h"
 
 @interface CTPreferences ()
@@ -13,21 +14,42 @@
 @end
 
 @implementation CTPreferences
+@synthesize defaultDevice, defaultTitaniumSDK;
 
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
-    if (self) {
-        // Initialization code here.
+    
+    if(self){
+
     }
     return self;
 }
 
 - (void)windowDidLoad
 {
-    [super windowDidLoad];
+    NSDictionary *devices = [CTConfig devicesList];
+    NSString *current = [devices objectForKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"CTDefaultTarget"]];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    [defaultDevice removeAllItems];
+    [defaultDevice addItemsWithTitles:[devices allValues]];
+    [defaultDevice selectItemWithTitle:current];
+    
+    [super windowDidLoad];
+}
+
+-(IBAction)updateDefaultDevice:(id)sender
+{
+    NSString *command = [[[CTConfig devicesList] allKeysForObject:[sender titleOfSelectedItem]] lastObject];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:command forKey:@"CTDefaultTarget"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(IBAction)updateDefaultTitaniumSDK:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[[sender titleOfSelectedItem] lowercaseString] forKey:@"CTSDKVersion"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

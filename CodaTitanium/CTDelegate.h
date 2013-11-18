@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+#import "CTConfig.h"
 #import "CTBuild.h"
 #import "CTPreferences.h"
 #import "CodaPluginsController.h"
 
 @class CTBuild, CTPreferences, CodaPlugInsController;
 
-@interface CTDelegate : NSObject <CodaPlugIn, NSWindowDelegate>
+@interface CTDelegate : NSObject <CodaPlugIn>
 {
     CTBuild *build;
     CTPreferences *pref;

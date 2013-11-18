@@ -8,6 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CTPreferences : NSWindowController
+@interface CTPreferences : NSWindowController <NSWindowDelegate>
+{    
+    IBOutlet NSPopUpButton *defaultDevice;
+    IBOutlet NSPopUpButton *defaultTitaniumSDK;
+}
+
+@property (nonatomic, retain) IBOutlet NSPopUpButton *defaultDevice;
+@property (nonatomic, retain) IBOutlet NSPopUpButton *defaultTitaniumSDK;
+
+-(IBAction)updateDefaultDevice:(id)sender;
+-(IBAction)updateDefaultTitaniumSDK:(id)sender;
 
 @end
